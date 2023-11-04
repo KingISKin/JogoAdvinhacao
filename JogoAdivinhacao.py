@@ -4,6 +4,7 @@ from tkinter import messagebox
 import random
 import sqlite3
 
+#teste
 def iniciar_jogo():
     global nickname
     nickname = entrada_nickname.get()
