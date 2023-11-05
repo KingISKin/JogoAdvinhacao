@@ -1,10 +1,48 @@
+#-*- coding: utf-8 -*-
+
 #Imports
 import tkinter as tk
 from tkinter import messagebox
 import random
 import sqlite3
+import os
+from datetime import datetime
 
-#teste
+#sqlite3 para poder interagir com o banco de dados sqlite
+#os para realizar a execução de comandos do S.O ('clear' para Linux e Mac, 'cls' para windows)
+#datetime para trabalhar com datas e horas
+
+def criar_tabela_partidas():
+    try:
+        conn = sqlite3.connect("bancodedados.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS partidas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome_usuario TEXT,
+                tentativas INTEGER,
+                inicio DATETIME,
+                fim DATETIME)""")
+
+        conn.close()  #dps de criar a tabela no banco de dados, eu fecho a conexao com o banco de dados
+    except sqlite3.Error as e:
+        print("Erro ao criar o banco de dados:", e)
+
+def iniciar_jogo():
+    global nickname
+    nickname = entrada_nickname.get()
+    if not nickname:
+        messagebox.showerror("Nickname Inválido", "Digite um nickname válido.")
+    else:
+        criar_tabela_partidas()  # Chame a função para criar a tabela no início do jogo
+        frame_inicio.pack_forget()
+        frame_jogo.pack()
+        reiniciar_jogo()
+
+# ^aqui foi feita uma instrução sql para criar uma tabela chamada 'partidas' caso ela nao exista. e a tabela tem as colunas: id, nome de usuario, tentativas, inicio e fim.
+
 def iniciar_jogo():
     global nickname
     nickname = entrada_nickname.get()
@@ -49,6 +87,7 @@ numero_secreto = random.randint(0, 100)
 tentativas = 0
 nickname = ""
 
+#interface grafica
 root = tk.Tk()
 root.title("Jogo de Adivinhação")
 root.geometry("300x300")
