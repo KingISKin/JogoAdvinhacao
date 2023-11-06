@@ -85,7 +85,7 @@ inicio_jogo = datetime.now()
 root = tk.Tk()
 root.title("Jogo de Adivinhação")
 root.geometry("300x300")
-root.configure(bg="gray")
+root.configure(bg="gray")para o repositório remoto porque existem alterações conflitantes entre o seu repositório local e o repos
 
 frame_inicio = tk.Frame(root, bg="gray")
 frame_inicio.pack(pady=50)
