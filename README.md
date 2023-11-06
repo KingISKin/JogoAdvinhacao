@@ -26,7 +26,6 @@ Execute o seu código Python com o seguinte comando:<p>
 Certifique-se de ter um visualizador de banco de dados para SQLite instalado no Visual Studio Code. 
 <li>Sugestão: ID de extensão <strong>alexcvzz.vscode-sqlite</strong></li>
 <br> </br>
-
 # Aos desenvolvedores:
 Após concluir uma parte do projeto, siga as etapas para realizar os commits das suas alterações:
 
