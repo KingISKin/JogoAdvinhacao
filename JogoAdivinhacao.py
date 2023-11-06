@@ -24,6 +24,13 @@ def criar_tabela_partidas(): #função criar_tabela_partidas responsável por cr
     conn.commit()
     conn.close()#dps de criar a tabela no banco de dados, eu fecho a conexao com o banco de dados
 
+def inserir_partida(nome_usuario, tentativas, inicio, fim):
+    conn = sqlite3.connect("bancodedados.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO partidas (nome_usuario, tentativas, inicio, fim) VALUES (?, ?, ?, ?)",
+        (nome_usuario, tentativas, inicio.strftime('%d-%m-%Y %H:%M:%S'), fim.strftime('%d-%m-%Y %H:%M:%S')))   
+    conn.commit()
+    conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
 
 def iniciar_jogo():
     global nickname, inicio_jogo
@@ -63,18 +70,18 @@ def comparar_palpite(palpite):
         
 def reiniciar_jogo():
     global numero_secreto, tentativas, inicio_jogo
-    numero_secreto = random.randint(1, 100) #a funcao inicia definindo um numero aleatorio entre 1 e 100 e inicializa o contador de tentativas como 0.
+    numero_secreto = random.randint(1, 100) #aqui a funcao inicia definindo um numero aleatorio entre 1 e 100 e inicializa o contador de tentativas como 0.
     tentativas = 0
     entrada.delete(0, tk.END)
     tentativas_label.config(text=f"Tentativas: {tentativas}")
-    inicio_jogo = datetime.now()  #obtida a data e hora atuais
+    inicio_jogo = datetime.now() #obtida a data e hora atuais
 
 numero_secreto = random.randint(1, 100)
 tentativas = 0
 nickname = ""
 inicio_jogo = datetime.now()
 
-#interface grafica
+#INTERFACE GRAFICA
 root = tk.Tk()
 root.title("Jogo de Adivinhação")
 root.geometry("300x300")
