@@ -9,14 +9,21 @@ from datetime import datetime
 #sqlite3 para interagir com um banco de dados SQLite
 #datetime para trabalhar com datas e horas
 
-
-def inserir_partida(nome_usuario, tentativas, inicio, fim):
+def criar_tabela_partidas(): #função criar_tabela_partidas responsável por criar uma tabela chamada "partidas" no banco de dados SQLite 'exemplo.db', se ela ainda não existir.
     conn = sqlite3.connect("bancodedados.db")
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO partidas (nome_usuario, tentativas, inicio, fim) VALUES (?, ?, ?, ?)",
-        (nome_usuario, tentativas, inicio.strftime('%d-%m-%Y %H:%M:%S'), fim.strftime('%d-%m-%Y %H:%M:%S')))   
+    cursor = conn.cursor() #é estabelecida uma conexão com o banco de dados SQLite 'bancodedados.db' usando a função 'connect' do módulo 'sqlite3'. Se o banco de dados não existir, ele será criado neste momento.
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS partidas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome_usuario TEXT,
+            tentativas INTEGER,
+            inicio DATETIME,
+            fim DATETIME)""")
+    # ^aqui foi feita uma instrução sql para criar uma tabela chamada 'partidas' caso ela nao exista. e a tabela tem as colunas: id, nome de usuario, tentativas, inicio e fim.
     conn.commit()
-    conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
+    conn.close()#dps de criar a tabela no banco de dados, eu fecho a conexao com o banco de dados
+
 
 def iniciar_jogo():
     global nickname, inicio_jogo
