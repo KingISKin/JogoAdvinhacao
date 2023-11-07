@@ -1,0 +1,5 @@
+Alunos
+Maria Eduarda Maciel Soares  5205191 - Documentação
+Victor Santos                5141265 - Interface Gráfica
+João Victor Nunes            5034035 - Corpo do Código
+Yasmin Teixeira de Freitas   5066727 - Banco de dados
