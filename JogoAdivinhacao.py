@@ -1,6 +1,11 @@
+#Imports
+import secrets
 import tkinter as tk
 import random
 import sqlite3
+
+def iniciar_jogo():
+    global nickname
 from datetime import datetime
 import customtkinter
 from CTkMessagebox import CTkMessagebox
@@ -13,7 +18,6 @@ from CTkMessagebox import CTkMessagebox
 def criar_tabela_partidas(): #função criar_tabela_partidas responsável por criar uma tabela chamada "partidas" no banco de dados SQLite 'exemplo.db', se ela ainda não existir.
     conn = sqlite3.connect("bancodedados.db")
     cursor = conn.cursor() #é estabelecida uma conexão com o banco de dados SQLite 'bancodedados.db' usando a função 'connect' do módulo 'sqlite3'. Se o banco de dados não existir, ele será criado neste momento.
-
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS partidas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,7 +38,7 @@ def inserir_partida(nome_usuario, tentativas, inicio, fim):
     conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
 
 def iniciar_jogo():
-    global nickname, inicio_jogo
+    global nickname
     nickname = entrada_nickname.get()
     if not nickname:
         CTkMessagebox(title="Não seja tímido", message="Digite um nome válido.", icon="cancel")
@@ -76,11 +80,6 @@ def reiniciar_jogo():
     entrada.delete(0, tk.END)
     tentativas_label.configure(text=f"Tentativas: {tentativas}")
     inicio_jogo = datetime.now() #obtida a data e hora atuais
-
-numero_secreto = random.randint(1, 100)
-tentativas = 0
-nickname = ""
-inicio_jogo = datetime.now()
 
 #INTERFACE GRAFICA
 janela = customtkinter.CTk()
