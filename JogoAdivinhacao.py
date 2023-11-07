@@ -4,6 +4,7 @@ import tkinter as tk
 import random
 import sqlite3
 from tkinter.messagebox import showinfo
+import time
 
 def iniciar_jogo():
     global nickname
@@ -60,7 +61,7 @@ def verificar_adivinhacao():
         CTkMessagebox(title="Caractere inválido", message="Digite um número válido.", icon="cancel")
 
 def comparar_palpite(palpite):
-    global tentativas, inicio_jogo, entrada, label_nickname
+    global tentativas, inicio_jogo, entrada, label_nickname, message_label
     tentativas += 1
     tentativas_label.configure(text=f"Tentativas: {tentativas}")
     
@@ -70,12 +71,13 @@ def comparar_palpite(palpite):
         reiniciar_jogo()
     elif palpite < numero_secreto:
         #CTkMessagebox(title="Palpite Baixo", message="Tente um número maior.")
-        entrada.focus_set()
+        message_label.configure(text=f"Tente um número maior")
         entrada.delete(0, 3)
+        entrada.focus_set()
 
     else:
         #CTkMessagebox(title="Palpite Alto", message="Tente um número menor.")
-        tentativas_label.configure(text=f"Tentativas: {tentativas}")
+        message_label.configure(text=f"Tente um número menor")
         entrada.delete(0, 3)
         entrada.focus_set()
        
@@ -123,6 +125,9 @@ label_instrucoes.pack(padx=25, pady=25)
 entrada = customtkinter.CTkEntry(frame_jogo, placeholder_text="Número")
 entrada.bind("<Return>", (lambda event: verificar_adivinhacao()))
 entrada.pack(pady=5)
+
+message_label = customtkinter.CTkLabel(frame_jogo, text="Boa sorte!")
+message_label.pack(padx=1, pady=1)
 
 botao_palpite = customtkinter.CTkButton(frame_jogo, text="Palpite", command=verificar_adivinhacao)
 botao_palpite.pack(padx=25, pady=25)
