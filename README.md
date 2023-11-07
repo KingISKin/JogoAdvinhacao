@@ -8,8 +8,6 @@ Eduarda Maciel(Documentação), João Victor Nunes(Corpo bruto do código), Vict
 ____________________________________________
 
 O jogo será baseado numa ideia da Yasmin T., onde o usuário tem um determinado número de chances para acertar um número secreto. Nossa principal idéia é nos desenvolver em Pyhton, por isso, apesar da simplicidade no quesito de objetivo do jogo, nosso principal foco é um código completo, consistente e organizado.
-<<<<<<< HEAD
-=======
 
 <h1> Para executar o Jogo: </h1>
 <li>Instale o Python3 em (https://www.python.org/downloads/)
@@ -44,4 +42,3 @@ Após concluir uma parte do projeto, siga as etapas para realizar os commits das
     <p><code> git push </code></p>
     </li>
 </ol>
->>>>>>> dev
