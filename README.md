@@ -13,6 +13,7 @@ O jogo será baseado numa ideia da Yasmin T., onde o usuário tem um determinado
 <li>Instale o Python3 em (https://www.python.org/downloads/)
 <li>Instale o Git em (https://git-scm.com/downloads).</li>
 <li>Biblioteca Tkinter pra visualização da interface gráfica do jogo. </li> 
+<li>Biblioteca customTkinter pra visualização da interface gráfica do jogo. </li> 
 
 <h3> Clone o repositório </h3>
 Use o seguinte comando no terminal do seu S.O. para clonar o repositório do projeto:<p>
