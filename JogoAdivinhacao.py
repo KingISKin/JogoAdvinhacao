@@ -3,6 +3,7 @@ import secrets
 import tkinter as tk
 import random
 import sqlite3
+from tkinter.messagebox import showinfo
 
 def iniciar_jogo():
     global nickname
@@ -59,20 +60,25 @@ def verificar_adivinhacao():
         CTkMessagebox(title="Caractere inválido", message="Digite um número válido.", icon="cancel")
 
 def comparar_palpite(palpite):
-    global tentativas
+    global tentativas, inicio_jogo, entrada, label_nickname
     tentativas += 1
     tentativas_label.configure(text=f"Tentativas: {tentativas}")
     
     if palpite == numero_secreto:
         CTkMessagebox(title="Parabéns!", message=f"{nickname}, você acertou em {tentativas} tentativas.")
-        inicio_jogo = datetime.now() 
         inserir_partida(nickname, tentativas, inicio_jogo, datetime.now())
         reiniciar_jogo()
     elif palpite < numero_secreto:
-        CTkMessagebox(title="Palpite Baixo", message="Tente um número maior.")
+        #CTkMessagebox(title="Palpite Baixo", message="Tente um número maior.")
+        entrada.focus_set()
+        entrada.delete(0, 3)
+
     else:
-        CTkMessagebox(title="Palpite Alto", message="Tente um número menor.")
-        
+        #CTkMessagebox(title="Palpite Alto", message="Tente um número menor.")
+        tentativas_label.configure(text=f"Tentativas: {tentativas}")
+        entrada.delete(0, 3)
+        entrada.focus_set()
+       
 def reiniciar_jogo():
     global numero_secreto, tentativas, inicio_jogo
     numero_secreto = random.randint(1, 100) #aqui a funcao inicia definindo um numero aleatorio entre 1 e 100 e inicializa o contador de tentativas como 0.
@@ -81,7 +87,13 @@ def reiniciar_jogo():
     tentativas_label.configure(text=f"Tentativas: {tentativas}")
     inicio_jogo = datetime.now() #obtida a data e hora atuais
 
+def reply(name):
+    global nickname
+    nickname = name
+    iniciar_jogo()
+
 #INTERFACE GRAFICA
+inicio_jogo = datetime.now() #incio do jogo
 janela = customtkinter.CTk()
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -99,6 +111,7 @@ label_nickname = customtkinter.CTkLabel(frame_inicio, text="Bem vindo! Qual seu 
 label_nickname.pack(padx=25, pady=25)
 
 entrada_nickname = customtkinter.CTkEntry(master=frame_inicio,width=250, placeholder_text="Nome")
+entrada_nickname.bind("<Return>", (lambda event: reply(entrada_nickname.get())))
 entrada_nickname.pack(padx=25, pady=25)
 
 botao_iniciar = customtkinter.CTkButton(frame_inicio, text="Iniciar Jogo", command=iniciar_jogo)
@@ -108,6 +121,7 @@ label_instrucoes = customtkinter.CTkLabel(frame_jogo, text="Vamos lá. Tente adi
 label_instrucoes.pack(padx=25, pady=25)
 
 entrada = customtkinter.CTkEntry(frame_jogo, placeholder_text="Número")
+entrada.bind("<Return>", (lambda event: verificar_adivinhacao()))
 entrada.pack(pady=5)
 
 botao_palpite = customtkinter.CTkButton(frame_jogo, text="Palpite", command=verificar_adivinhacao)
