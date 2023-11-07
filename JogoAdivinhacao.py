@@ -1,4 +1,3 @@
-#importações: o codigo começa importando os módulos necessários para o jogo:
 import tkinter as tk
 import random
 import sqlite3
@@ -32,7 +31,7 @@ def inserir_partida(nome_usuario, tentativas, inicio, fim):
     cursor.execute("INSERT INTO partidas (nome_usuario, tentativas, inicio, fim) VALUES (?, ?, ?, ?)",
         (nome_usuario, tentativas, inicio.strftime('%d-%m-%Y %H:%M:%S'), fim.strftime('%d-%m-%Y %H:%M:%S')))   
     conn.commit()
-    conn.close()  # após de inserir os dados, a conexão com o banco de dados é fechada.
+    conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
 
 def iniciar_jogo():
     global nickname, inicio_jogo
@@ -75,7 +74,7 @@ def reiniciar_jogo():
     numero_secreto = random.randint(1, 100) #aqui a funcao inicia definindo um numero aleatorio entre 1 e 100 e inicializa o contador de tentativas como 0.
     tentativas = 0
     entrada.delete(0, tk.END)
-    tentativas_label.config(text=f"Tentativas: {tentativas}")
+    tentativas_label.configure(text=f"Tentativas: {tentativas}")
     inicio_jogo = datetime.now() #obtida a data e hora atuais
 
 numero_secreto = random.randint(1, 100)
@@ -83,7 +82,7 @@ tentativas = 0
 nickname = ""
 inicio_jogo = datetime.now()
 
-#interface grafica
+#INTERFACE GRAFICA
 janela = customtkinter.CTk()
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
