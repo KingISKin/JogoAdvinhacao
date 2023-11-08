@@ -1,16 +1,22 @@
 #Imports
-import secrets
+import pygame
 import tkinter as tk
 import random
 import sqlite3
-from tkinter.messagebox import showinfo
-import time
 
 def iniciar_jogo():
     global nickname
 from datetime import datetime
 import customtkinter
 from CTkMessagebox import CTkMessagebox
+
+pygame.init()
+pygame.mixer.init()
+
+#efeitos
+on = pygame.mixer.Sound("data/on.ogg")
+off = pygame.mixer.Sound("data/off.ogg")
+click = pygame.mixer.Sound("data/click_sound_1.mp3")
 
 #importações: o codigo começa importando os módulos necessários para o jogo
 #tkinter interface grafica do python.
@@ -25,7 +31,7 @@ def criar_tabela_partidas(): #função criar_tabela_partidas responsável por cr
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_usuario TEXT,
             tentativas INTEGER,
-            inicio DATETIME,
+            inicio TIMESTAMP,
             fim DATETIME)""")
     # ^aqui foi feita uma instrução sql para criar uma tabela chamada 'partidas' caso ela nao exista. e a tabela tem as colunas: id, nome de usuario, tentativas, inicio e fim.
     conn.commit()
@@ -35,7 +41,7 @@ def inserir_partida(nome_usuario, tentativas, inicio, fim):
     conn = sqlite3.connect("bancodedados.db")
     cursor = conn.cursor()
     cursor.execute("INSERT INTO partidas (nome_usuario, tentativas, inicio, fim) VALUES (?, ?, ?, ?)",
-        (nome_usuario, tentativas, inicio.strftime('%d-%m-%Y %H:%M:%S'), fim.strftime('%d-%m-%Y %H:%M:%S')))   
+        (nome_usuario, tentativas, inicio, fim))   
     conn.commit()
     conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
 
@@ -116,10 +122,11 @@ entrada_nickname.pack(padx=25, pady=25)
 
 botao_iniciar = customtkinter.CTkButton(frame_inicio, text="Iniciar Jogo", command=iniciar_jogo)
 botao_iniciar.pack(padx=25, pady=25)
+click.play()
 
 label_instrucoes = customtkinter.CTkLabel(frame_jogo, text="Vamos lá. Tente adivinhar o número secreto entre 0 e 100:")
 label_instrucoes.pack(padx=25, pady=25)
-
+click.play()
 entrada = customtkinter.CTkEntry(frame_jogo, placeholder_text="Número")
 entrada.bind("<Return>", (lambda event: verificar_adivinhacao()))
 entrada.pack(pady=5)
@@ -138,15 +145,26 @@ tentativas_label.pack(padx=25, pady=25)
 
 #switch de iluminação
 frame_switch = customtkinter.CTkFrame(master=janela,width=50,height=50).place(x=850, y=550)
+
 switch1 = customtkinter.StringVar(value="on")
 switch2 = customtkinter.StringVar(value="off")
 
 def acionamento_switch():
     if switch1.get() == "on" and switch2.get() == "off":
         customtkinter.set_appearance_mode("dark")
+    off.play()
+    click.play()
     if switch1.get() == "off" and switch2.get() == "off":
         customtkinter.set_appearance_mode("light") 
+    on.play()
+    click.play()
+
 switch1 = customtkinter.CTkSwitch(master=janela, text="Modo Escuro", command=acionamento_switch, variable=switch1, onvalue="on", offvalue="off")
 switch1.pack(padx=100,pady=5)
 
+#musicaaaaaa
+pygame.mixer.music.load("data/8bit Bossa.mp3")
+pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir, pq o projeto entende q eu quero infinitamente
+
 janela.mainloop()
+pygame.quit()
