@@ -11,7 +11,7 @@ def ranking():
     conn = sqlite3.connect("../bancodedados.db")
     cursor = conn.cursor()
     cursor.execute("""
-        select nome_usuario, tentativas, strftime('%M:%S', strftime('%s', datetime(fim, 'localtime')) - strftime('%s', datetime(inicio, 'localtime')), 'unixepoch')  as tempo
+        select nome_usuario, tentativas, strftime('%M:%S', strftime('%s', datetime(fim, 'localtime')) - strftime('%s', datetime(inicio, 'localtime')), 'unixepoch')  as tempo, avg(tentativas) as media
           from partidas order by tentativas, tempo asc""")
     
     resultados = cursor.fetchall()
