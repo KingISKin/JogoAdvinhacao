@@ -70,13 +70,11 @@ def comparar_palpite(palpite):
         inserir_partida(nickname, tentativas, inicio_jogo, datetime.now())
         reiniciar_jogo()
     elif palpite < numero_secreto:
-        #CTkMessagebox(title="Palpite Baixo", message="Tente um número maior.")
         message_label.configure(text=f"Tente um número maior")
         entrada.delete(0, 3)
         entrada.focus_set()
 
     else:
-        #CTkMessagebox(title="Palpite Alto", message="Tente um número menor.")
         message_label.configure(text=f"Tente um número menor")
         entrada.delete(0, 3)
         entrada.focus_set()
