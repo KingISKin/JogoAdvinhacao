@@ -15,9 +15,9 @@ pygame.init()
 pygame.mixer.init()
 
 #efeitos
-#on = pygame.mixer.Sound("data/on.ogg")
-#off = pygame.mixer.Sound("data/off.ogg")
-#click = pygame.mixer.Sound("data/click_sound_1.mp3")
+on = pygame.mixer.Sound("data/on.ogg")
+off = pygame.mixer.Sound("data/off.ogg")
+click = pygame.mixer.Sound("data/click_sound_1.mp3")
 
 #importações: o codigo começa importando os módulos necessários para o jogo
 #tkinter interface grafica do python.
@@ -130,11 +130,11 @@ entrada_nickname.pack(padx=25, pady=25)
 
 botao_iniciar = customtkinter.CTkButton(frame_inicio, text="Iniciar Jogo", command=iniciar_jogo)
 botao_iniciar.pack(padx=25, pady=25)
-#click.play()
+click.play()
 
 label_instrucoes = customtkinter.CTkLabel(frame_jogo, text="Vamos lá. Tente adivinhar o número secreto entre 0 e 100:")
 label_instrucoes.pack(padx=25, pady=25)
-#click.play()
+click.play()
 entrada = customtkinter.CTkEntry(frame_jogo, placeholder_text="Número")
 entrada.bind("<Return>", (lambda event: verificar_adivinhacao()))
 entrada.pack(pady=5)
@@ -160,19 +160,19 @@ switch2 = customtkinter.StringVar(value="off")
 def acionamento_switch():
     if switch1.get() == "on" and switch2.get() == "off":
         customtkinter.set_appearance_mode("dark")
-    #off.play()
-    #click.play()
+    off.play()
+    click.play()
     if switch1.get() == "off" and switch2.get() == "off":
         customtkinter.set_appearance_mode("light") 
-    #on.play()
-    #click.play()
+    on.play()
+    click.play()
 
 switch1 = customtkinter.CTkSwitch(master=janela, text="Modo Escuro", command=acionamento_switch, variable=switch1, onvalue="on", offvalue="off")
 switch1.pack(padx=100,pady=5)
 
 #musicaaaaaa
-#pygame.mixer.music.load("data/8bit Bossa.mp3")
-#pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir, pq o projeto entende q eu quero infinitamente
+pygame.mixer.music.load("data/8bit Bossa.mp3")
+pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir, pq o projeto entende q eu quero infinitamente
 
 janela.mainloop()
 pygame.quit()

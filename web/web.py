@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 def ranking():
     
-    conn = sqlite3.connect("..JogoAdvinhacao/bancodedados.db")
+    conn = sqlite3.connect("../bancodedados.db")
     cursor = conn.cursor()
     cursor.execute("""
         select nome_usuario, tentativas, strftime('%M:%S', strftime('%s', datetime(fim, 'localtime')) - strftime('%s', datetime(inicio, 'localtime')), 'unixepoch')  as tempo
@@ -17,8 +17,9 @@ def ranking():
     cursor.execute("""select avg(tentativas) as media
           from partidas """)
     media = cursor.fetchone()
+    cursor.execute("""SELECT nome_usuario, min(tentativas) as min, max(tentativas) as max, avg(tentativas) as media, count(*) as partidas FROM partidas GROUP by nome_usuario ORDER by min ASC LIMIT 10""")
 
-
+    ranking = cursor.fetchall()
     conn.close()
 
-    return render_template ('index.html', resultados = resultados, media=media)
+    return render_template ('index.html', resultados = resultados, media=media, ranking=ranking)

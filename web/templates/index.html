@@ -65,9 +65,42 @@
 
         </div>
 
-        <h1 class="card-header bg">Ranking</h1>
+        <h1 class="card-header bg"><h1>Top 10 Jogadores</h1>
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-body-secondary">Melhores</h6>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Usuário </th>
+                        <th> Melhor Jogo </th>
+                        <th> Pior Jogo </th>
+                        <th> Média de Tentativas</th>
+                        <th> Total de Partidas </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {%set colors= cycler("table-primary", "table-secondary", "table-success", "table-danger", "table-warning", "table-info", "tabe-light","table-dark" )%}
+                    {%for r in ranking %}
+                    
+                    <tr class="{{colors.next()  }}">
+                        <td> {{r[0]}}</td>
+                        <td> {{r[1]}}</td>
+                        <td> {{r[2]}}</td>
+                        <td> {{'%0.2f' | format(r[3] |float)}}</td>
+                        <td> {{r[4]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+        <div class="card-body">
+            <h1 class="card-subtitle mb-2 text-body-primary">Partidas ({{resultados|count}})</h1>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Melhor jogo</h6>
             <table class="table table-striped">
                 <thead>
                     <tr>
