@@ -3,6 +3,7 @@ import pygame
 import tkinter as tk
 import random
 import sqlite3
+import os
 
 def iniciar_jogo():
     global nickname
@@ -14,17 +15,23 @@ pygame.init()
 pygame.mixer.init()
 
 #efeitos
-on = pygame.mixer.Sound("data/on.ogg")
-off = pygame.mixer.Sound("data/off.ogg")
-click = pygame.mixer.Sound("data/click_sound_1.mp3")
+#on = pygame.mixer.Sound("data/on.ogg")
+#off = pygame.mixer.Sound("data/off.ogg")
+#click = pygame.mixer.Sound("data/click_sound_1.mp3")
 
 #importações: o codigo começa importando os módulos necessários para o jogo
 #tkinter interface grafica do python.
 #sqlite3 para interagir com um banco de dados SQLite
 #datetime para trabalhar com datas e horas
 
+#variavel de ambiente funciona como valores definidos no ambiente onde o programa está sendo executado
+diretorio = os.getenv('JOGO_DB',f"{'/'.join(__file__.split('/')[1:-1])}") #obtem o caminho do banco de dados atraves da variavel de ambiente JOGO_DB, caso a variavel nao esteja definida, será criado no diretório atual.
+db_path=f"/{diretorio}/bancodedados.db" 
+
 def criar_tabela_partidas(): #função criar_tabela_partidas responsável por criar uma tabela chamada "partidas" no banco de dados SQLite 'exemplo.db', se ela ainda não existir.
-    conn = sqlite3.connect("bancodedados.db")
+    global db_path
+        
+    conn = sqlite3.connect(db_path) 
     cursor = conn.cursor() #é estabelecida uma conexão com o banco de dados SQLite 'bancodedados.db' usando a função 'connect' do módulo 'sqlite3'. Se o banco de dados não existir, ele será criado neste momento.
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS partidas (
@@ -38,10 +45,11 @@ def criar_tabela_partidas(): #função criar_tabela_partidas responsável por cr
     conn.close()#após de criar a tabela no banco de dados, eu fecho a conexao com o banco de dados
 
 def inserir_partida(nome_usuario, tentativas, inicio, fim):
-    conn = sqlite3.connect("bancodedados.db")
+    global db_path
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO partidas (nome_usuario, tentativas, inicio, fim) VALUES (?, ?, ?, ?)",
-        (nome_usuario, tentativas, inicio, fim))   
+        (nome_usuario, tentativas, inicio, fim))
     conn.commit()
     conn.close()  # dps de inserir os dados, a conexão com o banco de dados é fechada.
 
@@ -122,11 +130,11 @@ entrada_nickname.pack(padx=25, pady=25)
 
 botao_iniciar = customtkinter.CTkButton(frame_inicio, text="Iniciar Jogo", command=iniciar_jogo)
 botao_iniciar.pack(padx=25, pady=25)
-click.play()
+#click.play()
 
 label_instrucoes = customtkinter.CTkLabel(frame_jogo, text="Vamos lá. Tente adivinhar o número secreto entre 0 e 100:")
 label_instrucoes.pack(padx=25, pady=25)
-click.play()
+#click.play()
 entrada = customtkinter.CTkEntry(frame_jogo, placeholder_text="Número")
 entrada.bind("<Return>", (lambda event: verificar_adivinhacao()))
 entrada.pack(pady=5)
@@ -152,19 +160,19 @@ switch2 = customtkinter.StringVar(value="off")
 def acionamento_switch():
     if switch1.get() == "on" and switch2.get() == "off":
         customtkinter.set_appearance_mode("dark")
-    off.play()
-    click.play()
+    #off.play()
+    #click.play()
     if switch1.get() == "off" and switch2.get() == "off":
         customtkinter.set_appearance_mode("light") 
-    on.play()
-    click.play()
+    #on.play()
+    #click.play()
 
 switch1 = customtkinter.CTkSwitch(master=janela, text="Modo Escuro", command=acionamento_switch, variable=switch1, onvalue="on", offvalue="off")
 switch1.pack(padx=100,pady=5)
 
 #musicaaaaaa
-pygame.mixer.music.load("data/8bit Bossa.mp3")
-pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir, pq o projeto entende q eu quero infinitamente
+#pygame.mixer.music.load("data/8bit Bossa.mp3")
+#pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir, pq o projeto entende q eu quero infinitamente
 
 janela.mainloop()
 pygame.quit()
