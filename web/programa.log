@@ -1,0 +1,22 @@
+2023-11-10 15:06:42,827 - WARNING -  * Debugger is active!
+2023-11-10 15:06:42,827 - INFO -  * Debugger PIN: 441-770-863
+2023-11-10 15:06:48,807 - INFO - entrando no jogo
+2023-11-10 15:06:48,810 - INFO - 127.0.0.1 - - [10/Nov/2023 15:06:48] "GET / HTTP/1.1" 200 -
+2023-11-10 15:06:50,592 - INFO - entrando no jogo
+2023-11-10 15:06:50,593 - INFO - 127.0.0.1 - - [10/Nov/2023 15:06:50] "GET / HTTP/1.1" 200 -
+2023-11-10 15:07:13,468 - INFO -  * Detected change in '/home/yasminfreitas/JogoAdvinhacao/web/web.py', reloading
+2023-11-10 15:07:13,607 - WARNING -  * Debugger is active!
+2023-11-10 15:07:13,608 - INFO -  * Debugger PIN: 441-770-863
+2023-11-10 15:07:20,008 - INFO - entrando no jogo
+2023-11-10 15:07:20,010 - INFO - 127.0.0.1 - - [10/Nov/2023 15:07:20] "GET / HTTP/1.1" 200 -
+2023-11-10 15:07:21,679 - INFO - entrando no jogo
+2023-11-10 15:07:21,680 - INFO - 127.0.0.1 - - [10/Nov/2023 15:07:21] "GET / HTTP/1.1" 200 -
+2023-11-10 15:08:55,487 - INFO -  * Detected change in '/home/yasminfreitas/JogoAdvinhacao/web/web.py', reloading
+2023-11-10 15:08:55,672 - WARNING -  * Debugger is active!
+2023-11-10 15:08:55,673 - INFO -  * Debugger PIN: 441-770-863
+2023-11-10 15:09:02,728 - INFO - entrando no jogo
+2023-11-10 15:09:02,731 - INFO - 127.0.0.1 - - [10/Nov/2023 15:09:02] "GET / HTTP/1.1" 200 -
+2023-11-10 15:09:02,749 - INFO - 127.0.0.1 - - [10/Nov/2023 15:09:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-11-10 15:09:04,677 - INFO - entrando no jogo
+2023-11-10 15:09:04,677 - INFO - 127.0.0.1 - - [10/Nov/2023 15:09:04] "GET / HTTP/1.1" 200 -
+2023-11-10 15:09:54,842 - INFO -  * Detected change in '/home/yasminfreitas/JogoAdvinhacao/web/web.py', reloading
