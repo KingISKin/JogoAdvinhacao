@@ -109,7 +109,7 @@ def reply(name):
 #INTERFACE GRAFICA
 inicio_jogo = datetime.now() #incio do jogo
 janela = customtkinter.CTk()
-customtkinter.set_appearance_mode("dark")
+customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("blue")
 janela.title("Jogo de Adivinhação")
 janela.geometry("900x550")
@@ -159,11 +159,11 @@ switch2 = customtkinter.StringVar(value="off")
 
 def acionamento_switch():
     if switch1.get() == "on" and switch2.get() == "off":
-        customtkinter.set_appearance_mode("dark")
+        customtkinter.set_appearance_mode("light")
     off.play()
     click.play()
     if switch1.get() == "off" and switch2.get() == "off":
-        customtkinter.set_appearance_mode("light") 
+        customtkinter.set_appearance_mode("dark") 
     on.play()
     click.play()
 
