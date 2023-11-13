@@ -26,7 +26,7 @@ def index(nome_usuario=""):
 
 @app.route("/jogo", methods = ['POST', 'GET'])
 def jogo():
-    mensagem={"type":"info","msg": "Boa Sorte"}
+    mensagem={"type":"info", "icon":'fa-solid fa-duotone fa-face-smile-wink fa-beat',   "msg": "Boa Sorte"}
     if request.method == "POST":
         if "logout" in request.form:
             session.clear()
