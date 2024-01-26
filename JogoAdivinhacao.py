@@ -176,3 +176,6 @@ pygame.mixer.music.play(-1)#-1 eh a quantidade de tempo que a musica vai repetir
 
 janela.mainloop()
 pygame.quit()
+
+
+#teste
